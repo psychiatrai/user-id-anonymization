@@ -1,0 +1,17 @@
+Dear study participant
+
+To ensure anonymization and to protect your privacy, we have generated a random participant ID for you. Please use this 6-digit numeric ID as your username on any platforms that we use, as well as while filling out any surveys. This would be required then.
+Please do not delete this email, and please do not share your participant ID along with any personally identifiable information such as name, email address, phone number etc with anyone, including us. You may share the participant ID with us if requested though.
+
+Your 6-digit numric participant ID is 
+
+${PARTICIPANT_ID}
+
+We do not know that this particpant ID belongs to you or is linked with your email address. This is to make sure that we keep your data anonymous and private.
+If you have any questions, please do not hesitate to contact us at infopsychiatrai@gmail.com. Please do not disclose your participant ID in any of your communications with us though.
+
+We are thankful for your participation in this study, and we hope that this leads to better mental health outcomes for you as well as for the broader global community. Your participation in this study is invaluable and we are really grateful for that.
+
+Regards
+
+psychiatr.ai
