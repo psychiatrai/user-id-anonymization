@@ -100,35 +100,36 @@ def main():
         The main method which parses the arguments and calls
         the appropriate functions
     '''
-    if __name__ == "__main__":
-        
-        parser = argparse.ArgumentParser(description='Generates six digit alphanumeric \
+    parser = argparse.ArgumentParser(description='Generates six digit alphanumeric \
             random IDs corresponding to a file containing email IDs and emails the \
             recipients their random ID, while storing a shuffled version of the \
             randomly generated IDs')
-        parser.add_argument('--email_list', '-e', required=True, help=' The file \
-            location of the list containing all the email IDs')
-        parser.add_argument('--output_file', '-o', required=True,
-            default="./shuffled_random_ID_list.txt", help='Output file location of the \
-                list containing all the generated random IDs, but shuffled so that \
-                there is no identifiable mapping between the email list and the \
-                randomly generated IDs')
-        parser.add_argument('--email_message', '-m', required=True, default='message.txt',
-         help=' The file location of the email message to send to the study participants')
+    parser.add_argument('--email_list', '-e', required=True, help=' The file \
+        location of the list containing all the email IDs')
+    parser.add_argument('--output_file', '-o', default="shuffled_random_ID_list.txt", 
+        help='Output file location of the list containing all the generated random IDs, \
+            but shuffled so that there is no identifiable mapping between the email list \
+            and the randomly generated IDs')
+    parser.add_argument('--email_message', '-m', required=True, default='message.txt',
+        help=' The file location of the email message to send to the study participants')
 
-        args = parser.parse_args()
+    args = parser.parse_args()
 
-        SMTP_instance = create_SMTP_instance()
+    SMTP_instance = create_SMTP_instance()
 
-        email_addresses = get_email_addresses_from_file(args.email_list)
-        participant_ids = list(generate_random_participant_IDs(email_addresses))
-        email_message_content = read_email_message_template(args.email_message)
-        
-        compose_and_send_emails(SMTP_instance, email_message_content, email_addresses, participant_ids)
+    email_addresses = get_email_addresses_from_file(args.email_list)
+    participant_ids = list(generate_random_participant_IDs(email_addresses))
+    email_message_content = read_email_message_template(args.email_message)
+    
+    compose_and_send_emails(SMTP_instance, email_message_content, email_addresses, participant_ids)
 
-        SMTP_instance.quit()
+    del email_addresses
 
-        save_shuffled_generated_participant_ids(participant_ids, args.output_file)
+    SMTP_instance.quit()
+
+    save_shuffled_generated_participant_ids(participant_ids, args.output_file)
 
 
+if __name__ == "__main__":
+    main()
 
