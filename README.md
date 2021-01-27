@@ -32,6 +32,6 @@ python -m generate_random_user_ids -e <path-to-email-list> -o <path-to-store-the
 For example:
 
 ```
-python -m generate_random_user_ids -e email_list.txt -o generated_ids.txt -m message.txt
+python -m generate_random_user_ids -e sample_email_list.txt -o generated_ids.txt -m sample_message.txt
 ```
 
