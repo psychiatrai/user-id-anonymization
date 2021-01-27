@@ -29,9 +29,9 @@ Finally, run the script as follows:
 python -m generate_random_user_ids -e <path-to-email-list> -o <path-to-store-the-generated-and-shuffled-random-IDs> -m <path-to-the-email-message-content-file (.txt)>
 ```
 
-For example:
+Example usage:
 
 ```
-python -m generate_random_user_ids -e sample_email_list.txt -o generated_ids.txt -m sample_message.txt
+python -m generate_random_user_ids -e sample_email_list.txt -o sample_generated_ids.txt -m sample_message.txt
 ```
 
