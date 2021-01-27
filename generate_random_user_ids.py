@@ -1,8 +1,6 @@
 import argparse
-import base64
 from decouple import config
 from email.message import EmailMessage
-import numpy as np
 import smtplib
 import random
 import string
@@ -13,6 +11,7 @@ def get_source_email_credentials_from_environment_variables():
         Gets the source email address and password from a local
         .env file
     '''
+    global SOURCE_EMAIL
     SOURCE_EMAIL = config('SOURCE_EMAIL')
     SOURCE_EMAIL_PASSWORD = config('SOURCE_EMAIL_PASSWORD')
 
@@ -29,6 +28,18 @@ def get_email_addresses_from_file(email_list_file):
             email_addresses.append(email)
     
     return email_addresses
+
+
+def generate_random_participant_IDs(email_addresses):
+    '''
+        Generates six-digit alphanumeric IDs against a given list of email addresses
+    '''
+    random_participant_ids = set()        
+    while len(email_addresses) != len(random_participant_ids):
+        participant_id = ''.join(random.choices(string.ascii_uppercase + string.digits, k=6))
+        random_participant_ids.add(participant_id)
+
+    return random_participant_ids
 
 
 def read_email_message_template(message_file):
@@ -55,16 +66,33 @@ def create_SMTP_instance():
     return s
 
 
-def generate_random_participant_IDs(email_addresses):
+def compose_and_send_emails(SMTP_instance, email_message_content, email_addresses, participant_ids):
     '''
-        Generates six-digit alphanumeric IDs against a given list of email addresses
+        Composes and sends emails to each participant
     '''
-    random_participant_ids = set()        
-    while len(email_addresses) != len(random_participant_ids):
-        participant_id = ''.join(random.choices(string.ascii_uppercase + string.digits, k=6))
-        random_participant_ids.add(participant_id)
+    for email_address, participant_id in zip(email_addresses, participant_ids):
+        msg = EmailMessage()
+        
+        message = email_message_content.substitute(PARTICIPANT_ID=participant_id)
+        msg.set_content(message)
+        
+        msg['Subject'] = '[Confidential] Your random participant ID for the psychiatr.ai pilot study'
+        msg['From'] = SOURCE_EMAIL
+        msg['To'] = email_address
+    
+        SMTP_instance.send_message(msg)
 
-    return random_participant_ids
+
+def save_shuffled_generated_participant_ids(participant_ids, output_file_location):
+    '''
+        Saves a shuffled version of the generated participant IDs for 
+        future reference. No mapping between email addresses and the 
+        participant IDs can be obtained in this way
+    '''
+    random.shuffle(participant_ids)
+    with open(output_file_location, mode='w', encoding='utf-8') as output_file:
+        for participant_id in participant_ids:
+            output_file.write(participant_id)
 
 
 def main():
@@ -93,5 +121,14 @@ def main():
         SMTP_instance = create_SMTP_instance()
 
         email_addresses = get_email_addresses_from_file(args.email_list)
-        email_message = read_email_message_template(args.email_message)
+        participant_ids = list(generate_random_participant_IDs(email_addresses))
+        email_message_content = read_email_message_template(args.email_message)
+        
+        compose_and_send_emails(SMTP_instance, email_message_content, email_addresses, participant_ids)
+
+        SMTP_instance.quit()
+
+        save_shuffled_generated_participant_ids(participant_ids, args.output_file)
+
+
 
