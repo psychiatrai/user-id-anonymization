@@ -92,7 +92,7 @@ def save_shuffled_generated_participant_ids(participant_ids, output_file_locatio
     random.shuffle(participant_ids)
     with open(output_file_location, mode='w', encoding='utf-8') as output_file:
         for participant_id in participant_ids:
-            output_file.write(participant_id)
+            output_file.write(participant_id+'\n')
 
 
 def main():
