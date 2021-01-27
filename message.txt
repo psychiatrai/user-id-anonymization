@@ -1,6 +1,6 @@
 Dear study participant
 
-To ensure anonymization and to protect your privacy, we have generated a random participant ID for you. Please use this 6-digit numeric ID as your username on any platforms that we use, as well as while filling out any surveys. This would be required then.
+To ensure anonymization and to protect your privacy, we have generated a random participant ID for you. Please use this 6-digit case-sensitive alphanumeric ID as your username on any platforms that we use, as well as while filling out any surveys. This would be required then.
 Please do not delete this email, and please do not share your participant ID along with any personally identifiable information such as name, email address, phone number etc with anyone, including us. You may share the participant ID with us if requested though.
 
 Your 6-digit numric participant ID is 
