@@ -74,7 +74,7 @@ def main():
     '''
     if __name__ == "__main__":
         
-        parser = argparse.ArgumentParser(description='Generates six digit numerical \
+        parser = argparse.ArgumentParser(description='Generates six digit alphanumeric \
             random IDs corresponding to a file containing email IDs and emails the \
             recipients their random ID, while storing a shuffled version of the \
             randomly generated IDs')
