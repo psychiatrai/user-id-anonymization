@@ -1,0 +1,9 @@
+Dear User
+
+Your 6-digit alphanumric participant ID is 
+
+${PARTICIPANT_ID}
+
+Regards
+
+psychiatr.ai
